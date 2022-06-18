@@ -1,7 +1,8 @@
-package com.selimozturk.samplepostapp
+package com.selimozturk.samplepostapp.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.selimozturk.samplepostapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
