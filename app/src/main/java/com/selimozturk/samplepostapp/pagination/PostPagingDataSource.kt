@@ -14,7 +14,7 @@ class PostPagingDataSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = api.getPosts()
+            val response = api.getPosts(page=page)
             LoadResult.Page(
                 data = response,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),
