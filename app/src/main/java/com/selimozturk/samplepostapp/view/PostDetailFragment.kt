@@ -4,25 +4,53 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.selimozturk.samplepostapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.selimozturk.samplepostapp.adapters.CommentsAdapter
+import com.selimozturk.samplepostapp.databinding.FragmentPostDetailBinding
+import com.selimozturk.samplepostapp.viewmodels.PostDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PostDetailFragment : Fragment() {
+    private var _binding: FragmentPostDetailBinding? = null
+    private val binding get() = _binding!!
     private val args: PostDetailFragmentArgs by navArgs()
+    private val viewModel: PostDetailViewModel by viewModels()
+    private val adapter = CommentsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_post_detail, container, false)
+    ): View {
+        _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+        viewModel.getPostComments(args.postDomain.id.toString())
+        viewModel.getUserInfo(args.postDomain.userId)
+        binding.postArgs=args.postDomain
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(requireContext(),args.postId.toString(),Toast.LENGTH_SHORT).show()
-
+        observeLiveData()
     }
 
+    private fun observeLiveData(){
+        viewModel.comment.observe(viewLifecycleOwner){
+            adapter.items=it
+        }
+        viewModel.user.observe(viewLifecycleOwner){
+            binding.name.text=it.name
+            binding.username.text=it.username
+        }
+    }
+
+    private fun setupRecyclerView(){
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.commentsRW.layoutManager = layoutManager
+        binding.commentsRW.adapter = adapter
+    }
 }

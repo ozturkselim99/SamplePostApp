@@ -31,8 +31,7 @@
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
         <argument
-            android:name="postId"
-            app:argType="integer"
-            android:defaultValue="1" />
+            android:name="postDomain"
+            app:argType="com.selimozturk.samplepostapp.domain.model.PostDomain" />
     </fragment>
 </navigation>

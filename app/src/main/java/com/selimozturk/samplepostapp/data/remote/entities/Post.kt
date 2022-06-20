@@ -5,11 +5,6 @@ import androidx.lifecycle.map
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.selimozturk.samplepostapp.domain.model.PostDomain
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.net.URL
 
 data class Post(
     val id: Int,

@@ -1,5 +1,7 @@
 package com.selimozturk.samplepostapp.data.remote.entities.user
 
+import com.selimozturk.samplepostapp.domain.model.UserDomain
+
 data class User(
     val id: Int,
     val name: String,
@@ -10,3 +12,9 @@ data class User(
     val website: String,
     val company: Company
 )
+
+fun User.userDataToUserDomainData(): UserDomain {
+    return UserDomain(
+        id,name,username,email
+    )
+}
