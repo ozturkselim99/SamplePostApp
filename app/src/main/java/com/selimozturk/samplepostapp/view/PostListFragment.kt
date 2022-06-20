@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,34 +24,34 @@ class PostListFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PostListViewModel by viewModels()
     private val adapter = PostsAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPostListBinding.inflate(inflater, container, false)
-        setupCharactersRecyclerView()
-        adapter.addLoadStateListener { loadStates ->
-            binding.postLoadingProgressBar.visibility =
-                if (loadStates.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+        setupPostsRecyclerView()
+        adapter.addLoadStateListener { loadState ->
+            binding.postLoadingProgressBar.isVisible = loadState.refresh is LoadState.Loading
+            binding.retryButton.isVisible = loadState.refresh !is LoadState.NotLoading
+            binding.noInternetText.isVisible = loadState.refresh is LoadState.Error
         }
         adapter.onItemClicked={
-            val action=PostListFragmentDirections.actionPostListFragmentToPostDetailFragment(it.id)
+            val action=PostListFragmentDirections.actionPostListFragmentToPostDetailFragment(it)
             findNavController().navigate(action)
+        }
+        binding.retryButton.setOnClickListener {
+            adapter.retry()
         }
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        submitDataToCharactersAdapter()
+        submitDataToPostsAdapter()
     }
 
-    private fun submitDataToCharactersAdapter() {
+    private fun submitDataToPostsAdapter() {
         lifecycleScope.launch {
             viewModel.getPosts()
                 .observe(viewLifecycleOwner) {
@@ -61,10 +62,15 @@ class PostListFragment : Fragment() {
         }
     }
 
-    private fun setupCharactersRecyclerView() {
+    private fun setupPostsRecyclerView() {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         binding.postsRW.layoutManager = linearLayoutManager
         binding.postsRW.adapter = adapter
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
