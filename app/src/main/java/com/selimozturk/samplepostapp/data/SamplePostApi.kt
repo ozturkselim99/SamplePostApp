@@ -8,14 +8,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface SamplePostApi {
+
     @GET("posts")
-    suspend fun getPosts(@Query("_page") page: Int) :List<Post>
+    suspend fun getPosts(@Query("_page") page: Int): List<Post>
 
     @GET("users/{id}")
     suspend fun getUserInfo(@Path("id") id: Int): User
 
     @GET("comments")
     suspend fun getPostComments(
-        @Query("postId") postId: String="",
+        @Query("postId") postId: String = "",
     ): List<Comment>
+
 }

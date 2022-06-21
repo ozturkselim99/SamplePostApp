@@ -29,34 +29,37 @@ class PostListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentPostListBinding.inflate(inflater, container, false)
+
         setupPostsRecyclerView()
+
         adapter.addLoadStateListener { loadState ->
             binding.postLoadingProgressBar.isVisible = loadState.refresh is LoadState.Loading
             binding.retryButton.isVisible = loadState.refresh !is LoadState.NotLoading
             binding.noInternetText.isVisible = loadState.refresh is LoadState.Error
         }
-        adapter.onItemClicked={
-            val action=PostListFragmentDirections.actionPostListFragmentToPostDetailFragment(it)
+
+        adapter.onItemClicked = {
+            val action = PostListFragmentDirections.actionPostListFragmentToPostDetailFragment(it)
             findNavController().navigate(action)
         }
+
         binding.retryButton.setOnClickListener {
             adapter.retry()
         }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         submitDataToPostsAdapter()
+
+        return binding.root
     }
 
     private fun submitDataToPostsAdapter() {
         lifecycleScope.launch {
             viewModel.getPosts()
-                .observe(viewLifecycleOwner) {
-                    it?.let {
-                        adapter.submitData(lifecycle, it)
+                .observe(viewLifecycleOwner) {posts->
+                    posts?.let {
+                        adapter.submitData(lifecycle, posts)
                     }
                 }
         }

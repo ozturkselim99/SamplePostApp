@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.selimozturk.samplepostapp.databinding.CommentItemRowBinding
 import com.selimozturk.samplepostapp.domain.model.CommentDomain
 
-class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>() {
+class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolder>() {
+
     var items: List<CommentDomain> = emptyList()
         set(value) {
             field = value
@@ -17,7 +18,7 @@ class CommentsAdapter() : RecyclerView.Adapter<CommentsAdapter.CommentsViewHolde
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(commentDomain: CommentDomain) {
-            binding.comment=commentDomain
+            binding.comment = commentDomain
         }
     }
 

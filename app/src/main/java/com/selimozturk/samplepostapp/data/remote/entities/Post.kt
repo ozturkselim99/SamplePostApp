@@ -14,13 +14,13 @@ data class Post(
 )
 
 fun LiveData<PagingData<Post>>.postListToPostDomainDataList(): LiveData<PagingData<PostDomain>> {
-    return map {pagingData->
-        pagingData.map {
+    return map { pagingData ->
+        pagingData.map { post ->
             PostDomain(
-                id = it.id,
-                userId=it.userId,
-                title = it.title,
-                body = it.body,
+                id = post.id,
+                userId = post.userId,
+                title = post.title,
+                body = post.body,
             )
         }
     }

@@ -9,10 +9,11 @@ data class Comment(
     val email: String,
     val body: String
 )
+
 fun List<Comment>.commentDataToCommentDomainData(): List<CommentDomain> {
-    return map {
+    return map { comment ->
         CommentDomain(
-            it.postId,it.id,it.name,it.email,it.body
+            comment.postId, comment.id, comment.name, comment.email, comment.body
         )
     }
 }

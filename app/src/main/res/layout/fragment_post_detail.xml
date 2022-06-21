@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="postArgs"
             type="com.selimozturk.samplepostapp.domain.model.PostDomain" />
@@ -29,7 +30,8 @@
                 android:layout_height="48dp"
                 android:src="@drawable/ic_launcher_background"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ImageContrastCheck"></de.hdodenhof.circleimageview.CircleImageView>
 
             <TextView
                 android:id="@+id/name"
@@ -51,7 +53,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/name"
                 app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:ignore="TextContrastCheck"
                 tools:text="Bret" />
+
+            <ProgressBar
+                android:id="@+id/userLoadingProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -74,20 +87,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="16sp"
             android:text="@{postArgs.body}"
-            tools:text="aut est omnis dolores nneque rerum quod ea rerum velit pariatur beatae excepturi net provident voluptas corrupti ncorporis harum reprehenderit dolores eligendi"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@+id/title" />
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            tools:text="aut est omnis dolores nneque rerum quod ea rerum velit pariatur beatae excepturi net provident voluptas corrupti ncorporis harum reprehenderit dolores eligendi" />
 
         <TextView
             android:id="@+id/commentsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:text="@string/comments"
             android:textSize="16sp"
-            android:text="Comments"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/body"
             app:layout_constraintTop_toBottomOf="@+id/body" />

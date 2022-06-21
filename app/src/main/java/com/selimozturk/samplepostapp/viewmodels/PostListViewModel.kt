@@ -13,7 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostListViewModel @Inject constructor(private val samplePostAppRepository: SamplePostAppRepository) : ViewModel() {
+
     fun getPosts(): LiveData<PagingData<PostDomain>> {
         return samplePostAppRepository.getPosts().postListToPostDomainDataList().cachedIn(viewModelScope)
     }
+
 }

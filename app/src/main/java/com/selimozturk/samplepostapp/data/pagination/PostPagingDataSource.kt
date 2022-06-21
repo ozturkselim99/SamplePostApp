@@ -1,4 +1,4 @@
-package com.selimozturk.samplepostapp.pagination
+package com.selimozturk.samplepostapp.data.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -14,7 +14,7 @@ class PostPagingDataSource @Inject constructor(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Post> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = api.getPosts(page=page)
+            val response = api.getPosts(page = page)
             LoadResult.Page(
                 data = response,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page.minus(1),
@@ -27,7 +27,10 @@ class PostPagingDataSource @Inject constructor(
 
 
     override fun getRefreshKey(state: PagingState<Int, Post>): Int? {
-        return null
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 
     companion object {

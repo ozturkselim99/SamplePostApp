@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="post"
             type="com.selimozturk.samplepostapp.domain.model.PostDomain" />
@@ -11,18 +12,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/postItemRow"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
         <ImageView
-            android:contentDescription="@string/post_image"
             android:id="@+id/profile_image"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:contentDescription="@string/post_image"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
             android:id="@+id/name"
@@ -44,11 +46,11 @@
             android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:singleLine="true"
-            tools:text="Body"
             android:text="@{post.body}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            tools:text="Body" />
 
         <View
             android:id="@+id/divider"

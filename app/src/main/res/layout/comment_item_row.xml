@@ -11,9 +11,9 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
@@ -21,7 +21,8 @@
             android:layout_height="48dp"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck"></de.hdodenhof.circleimageview.CircleImageView>
 
         <TextView
             android:id="@+id/name"
@@ -53,15 +54,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{comment.body}"
-            tools:text="lorem ipsum amet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/mail"
-            app:layout_constraintTop_toBottomOf="@+id/mail" />
+            app:layout_constraintTop_toBottomOf="@+id/mail"
+            tools:text="lorem ipsum amet" />
+
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:layout_height="1dp"
+            android:layout_marginTop="8dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -45,4 +45,5 @@ class PostsAdapter(var onItemClicked: ((PostDomain) -> Unit) = {}) :
             return oldItem == newItem
         }
     }
+
 }

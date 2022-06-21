@@ -5,5 +5,5 @@ data class CommentDomain(
     val id: Int,
     val name: String,
     val email: String,
-    val body: String
+    val body: String,
 )
